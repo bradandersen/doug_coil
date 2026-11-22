@@ -12,7 +12,7 @@ C = 10^9 / ((2 * π * f)^2 * L)
 
 The workbook has three sheets: **Switch Calculator**, **Coil Calculator**, and **How To**. The same calculation is the web page at [bradandersen.github.io/doug_coil](https://bradandersen.github.io/doug_coil/).
 
-Enter the coil in millihenries and the frequency. The page names the switches to turn on, lists the frequency table, and keeps your capacitor measurements in the browser. Switches A through P are two rows of eight. A starts at 60 µF, and M starts at 0.022 µF. Each switch shows the sum of the switches after it.
+Enter the coil in millihenries and the frequency. The page names the switches to turn on, lists the frequency table, and keeps your capacitor measurements in the browser. Switches A through P are two rows of eight. A starts at 60 µF, and M starts at 0.022 µF. Most coils do not have an A switch: it is expensive, and it is only good for 154 Hz–218 Hz. Set A to 0 when the coil does not have one. Each switch shows the sum of the switches after it.
 
 ## Measure each capacitor
 

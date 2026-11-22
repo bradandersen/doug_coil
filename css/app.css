@@ -302,6 +302,14 @@ input:focus-visible {
 
 .bank-total { color: var(--muted); margin-top: 0; }
 
+.note-a {
+  max-width: 78ch;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  background: #f8efe6;
+  border-left: 3px solid var(--copper);
+}
+
 .bank-scroll { overflow-x: auto; margin: 8px 0 18px; }
 
 .switch-grid {
