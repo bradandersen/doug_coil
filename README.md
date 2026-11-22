@@ -8,7 +8,9 @@ Capacitance is in microfarads. `L` is the coil in millihenries, and `f` is the f
 C = 10^9 / ((2 * π * f)^2 * L)
 ```
 
-The workbook has three sheets: **Switch Calculator**, **Coil Calculator**, and **How To**.
+The workbook has three sheets: **Switch Calculator**, **Coil Calculator**, and **How To**. The same calculation is also a web page, [index.html](index.html), ready for GitHub Pages: [bradandersen.github.io/doug_coil](https://bradandersen.github.io/doug_coil/).
+
+Enter the coil in millihenries and the frequency. The page names the switches to turn on, lists the frequency table, and keeps your capacitor measurements in the browser. Switch M starts at 0.022 µF. Each bank row shows the sum of the switches after it.
 
 ## Measure each capacitor
 
@@ -24,7 +26,7 @@ Do this quarterly. Capacitance fades with usage, and every switch choice in the 
 
 That is base-X. The place value of a switch is its measured capacitance, and the step from one switch to the next is the base. Where that step is about 2, turning one switch on is the same capacitance as turning on every switch below it. The sheet uses that fact: it walks from the largest switch to the smallest, turns a switch on when the capacitance still needed is greater than that switch, and subtracts it.
 
-On the sample bank, switch C is 16.07 µF and switches D through P add up to 15.99 µF. Switch D is 8.02 µF and switches E through P add up to 7.97 µF. The same check runs down the row. After you enter new measurements, a switch that no longer matches the sum of the switches after it needs another look.
+On the sample bank, with switch M at 0.022 µF, switch C is 16.07 µF and the switches after it add up to 16.01 µF. Switch D is 8.02 µF and the switches after it add up to 7.99 µF. The same check runs down the row. After you enter new measurements, a switch that no longer matches the sum of the switches after it needs another look.
 
 ## Switch Calculator
 

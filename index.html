@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Doug Coil Calculator</title>
+<meta name="description" content="Find the capacitance that resonates a Doug coil at a given frequency, and the switches that build it.">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip" href="#result">Skip to result</a>
+<div class="sheet">
+  <header class="mast">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="5" fill="none" stroke="currentColor" stroke-width="2.2"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="2.2"/>
+        <circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      </svg>
+    </div>
+    <div>
+      <p class="kicker">Doug coil</p>
+      <h1>Capacitance calculator</h1>
+      <p class="lede">Enter the coil and the frequency. The page gives the capacitance that resonates the coil, then the switches that come closest.</p>
+    </div>
+  </header>
+
+  <section class="work" aria-label="Frequency and result">
+    <div class="inputs">
+      <div class="field">
+        <label for="coil">Coil</label>
+        <div class="entry">
+          <input id="coil" inputmode="decimal" autocomplete="off" spellcheck="false" value="8.81">
+          <span>mH</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="freq">Frequency</label>
+        <div class="entry">
+          <input id="freq" inputmode="decimal" autocomplete="off" spellcheck="false" value="230">
+          <span>Hz</span>
+        </div>
+      </div>
+      <div class="stepper">
+        <button type="button" id="freqDown" aria-label="Decrease frequency by 5 hertz">−5 Hz</button>
+        <button type="button" id="freqUp" aria-label="Increase frequency by 5 hertz">+5 Hz</button>
+      </div>
+    </div>
+
+    <div class="result" id="result" aria-live="polite">
+      <p class="warn" id="warn" hidden></p>
+      <p class="result-kicker">Capacitance needed</p>
+      <p class="result-figure"><span id="needed">—</span> <span class="unit">µF</span></p>
+      <p class="result-sub" id="neededNote"></p>
+      <div class="result-split">
+        <div>
+          <p class="result-kicker">On the bank</p>
+          <p class="result-mid"><span id="available">—</span> µF</p>
+        </div>
+        <div>
+          <p class="result-kicker">Short</p>
+          <p class="result-mid"><span id="shortfall">—</span> µF</p>
+        </div>
+        <div>
+          <p class="result-kicker">Difference</p>
+          <p class="result-mid"><span id="percent">—</span></p>
+        </div>
+      </div>
+      <div class="chips" id="chips" role="list" aria-label="Switch bank"></div>
+      <p class="turn-on" id="turnOn"></p>
+      <p class="nearby" id="nearby" hidden></p>
+      <button type="button" class="text-btn" id="copySwitches">Copy switches</button>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="bank-title">
+    <div class="block-head">
+      <h2 id="bank-title">Capacitor bank</h2>
+      <button type="button" class="text-btn" id="resetBank">Reset sample values</button>
+    </div>
+    <p>Measure every capacitor with a digital multimeter. You may need to disconnect a wire from the connection to the coil so the meter reads that capacitor alone. Enter the readings here. Do this quarterly. Capacitance fades with usage, and every row in the table depends on these values.</p>
+    <p class="callout"><strong>Each switch is a summary of all the switches that follow it.</strong> The microfarads on a switch should come out about the same as the sum of every switch after it. Where that step is about 2, one switch on is worth every switch below it.</p>
+    <p class="bank-total" id="bankTotal"></p>
+    <div class="table-scroll">
+      <table class="bank">
+        <thead>
+          <tr>
+            <th scope="col">Switch</th>
+            <th scope="col">Measured µF</th>
+            <th scope="col">Sum of the switches after it</th>
+            <th scope="col">State</th>
+          </tr>
+        </thead>
+        <tbody id="bankBody"></tbody>
+      </table>
+    </div>
+    <p class="fine" id="saveNote">Measurements stay in this browser.</p>
+  </section>
+
+  <section class="block no-print" aria-labelledby="table-title">
+    <div class="block-head">
+      <h2 id="table-title">Frequency table</h2>
+    </div>
+    <p>The same 5 Hz grid as the spreadsheet. Choose a row to use that frequency. A difference over 0.6% is marked, because driving the coil to 1.5 V or 15 A that far off heats the capacitor, the amp, and the coil.</p>
+    <div class="sweep-controls">
+      <div class="field compact">
+        <label for="sweepFrom">From</label>
+        <div class="entry">
+          <input id="sweepFrom" inputmode="decimal" autocomplete="off" value="230">
+          <span>Hz</span>
+        </div>
+      </div>
+      <div class="field compact">
+        <label for="sweepTo">To</label>
+        <div class="entry">
+          <input id="sweepTo" inputmode="decimal" autocomplete="off" value="3500">
+          <span>Hz</span>
+        </div>
+      </div>
+      <div class="field compact">
+        <label for="sweepStep">Step</label>
+        <div class="entry">
+          <input id="sweepStep" inputmode="decimal" autocomplete="off" value="5">
+          <span>Hz</span>
+        </div>
+      </div>
+    </div>
+    <p class="fine" id="sweepNote"></p>
+    <div class="table-scroll tall" id="sweepScroll">
+      <table class="sweep">
+        <thead>
+          <tr>
+            <th scope="col">Frequency</th>
+            <th scope="col">Needed µF</th>
+            <th scope="col">Available µF</th>
+            <th scope="col">% Difference</th>
+            <th scope="col">Switches</th>
+          </tr>
+        </thead>
+        <tbody id="sweepBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="coil-title">
+    <h2 id="coil-title">Measure the coil</h2>
+    <p>Turn on one known capacitor, such as the 4 µF on switch E. Set the frequency near 840 Hz for that switch, bring the output up to about 0.5 V, and move the frequency until the voltage peaks. Fine-tune by tenths of a hertz. Enter that capacitance and the frequency where the voltage was highest.</p>
+    <div class="coil-grid">
+      <div class="field">
+        <label for="knownCap">Known capacitance</label>
+        <div class="entry">
+          <input id="knownCap" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="4.01">
+          <span>µF</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="knownFreq">Peak frequency</label>
+        <div class="entry">
+          <input id="knownFreq" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="840">
+          <span>Hz</span>
+        </div>
+      </div>
+      <div class="coil-out">
+        <p class="result-kicker">Coil size</p>
+        <p class="result-mid"><span id="coilOut">—</span> <span class="unit">mH</span></p>
+        <button type="button" class="solid-btn" id="useCoil">Use this coil size</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Resonant capacitance, in microfarads, for coil <span class="math">L</span> in millihenries and frequency <span class="math">f</span> in hertz: 10<sup>9</sup> / ((2πf)<sup>2</sup> × L).</p>
+    <p>The spreadsheet is <a href="Doug%20Coil%20Calculator.xlsx">Doug Coil Calculator.xlsx</a>. Written by Brad Andersen.</p>
+  </footer>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
