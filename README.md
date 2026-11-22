@@ -1,5 +1,7 @@
 # Doug Coil Calculator
 
+**[Open the calculator on GitHub Pages](https://bradandersen.github.io/doug_coil/)**
+
 A spreadsheet that finds the capacitance to resonate a Doug coil at a chosen frequency, then tells you which capacitor switches to turn on.
 
 Capacitance is in microfarads. `L` is the coil in millihenries, and `f` is the frequency in hertz:
@@ -8,7 +10,7 @@ Capacitance is in microfarads. `L` is the coil in millihenries, and `f` is the f
 C = 10^9 / ((2 * π * f)^2 * L)
 ```
 
-The workbook has three sheets: **Switch Calculator**, **Coil Calculator**, and **How To**. The same calculation is also a web page, [index.html](index.html), ready for GitHub Pages: [bradandersen.github.io/doug_coil](https://bradandersen.github.io/doug_coil/).
+The workbook has three sheets: **Switch Calculator**, **Coil Calculator**, and **How To**. The same calculation is the web page at [bradandersen.github.io/doug_coil](https://bradandersen.github.io/doug_coil/).
 
 Enter the coil in millihenries and the frequency. The page names the switches to turn on, lists the frequency table, and keeps your capacitor measurements in the browser. Switch M starts at 0.022 µF. Each bank row shows the sum of the switches after it.
 
