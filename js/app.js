@@ -422,8 +422,11 @@ function init() {
   for (const id of ["coil", "freq", "sweepFrom", "sweepTo", "sweepStep", "knownCap", "knownFreq"]) {
     el(id).addEventListener("input", render);
   }
-  el("freqDown").addEventListener("click", () => shiftFreq(-5));
-  el("freqUp").addEventListener("click", () => shiftFreq(5));
+  el("freqSteps").addEventListener("click", (event) => {
+    const button = event.target.closest("button");
+    if (!button || button.dataset.delta == null) return;
+    shiftFreq(Number(button.dataset.delta));
+  });
   el("resetBank").addEventListener("click", applySample);
   el("useCoil").addEventListener("click", () => {
     if (!el("useCoil").dataset.mh) return;

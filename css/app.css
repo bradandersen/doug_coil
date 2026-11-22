@@ -142,7 +142,7 @@ h2 {
 
 .compact .entry input { font-size: 18px; }
 
-.stepper { display: flex; gap: 8px; }
+.stepper { display: flex; flex-wrap: wrap; gap: 6px; }
 
 button { font-family: inherit; cursor: pointer; }
 
@@ -157,9 +157,11 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--copper);
   color: #fff8f4;
   border: 1px solid var(--copper-deep);
-  padding: 8px 14px;
+  padding: 8px 10px;
   font-size: 15px;
 }
+
+.stepper button { flex: 1 1 calc(33% - 6px); }
 
 .stepper button:hover,
 .solid-btn:hover { background: var(--copper-deep); }

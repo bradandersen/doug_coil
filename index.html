@@ -42,9 +42,13 @@
           <span>Hz</span>
         </div>
       </div>
-      <div class="stepper">
-        <button type="button" id="freqDown" aria-label="Decrease frequency by 5 hertz">−5 Hz</button>
-        <button type="button" id="freqUp" aria-label="Increase frequency by 5 hertz">+5 Hz</button>
+      <div class="stepper" id="freqSteps">
+        <button type="button" data-delta="-5" aria-label="Decrease frequency by 5 hertz">−5 Hz</button>
+        <button type="button" data-delta="-3" aria-label="Decrease frequency by 3 hertz">−3 Hz</button>
+        <button type="button" data-delta="-1" aria-label="Decrease frequency by 1 hertz">−1 Hz</button>
+        <button type="button" data-delta="1" aria-label="Increase frequency by 1 hertz">+1 Hz</button>
+        <button type="button" data-delta="3" aria-label="Increase frequency by 3 hertz">+3 Hz</button>
+        <button type="button" data-delta="5" aria-label="Increase frequency by 5 hertz">+5 Hz</button>
       </div>
     </div>
 
