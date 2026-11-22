@@ -230,15 +230,15 @@ input:focus-visible {
 }
 
 .chips {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   gap: 6px;
   margin-top: 18px;
 }
 
 .chip {
-  min-width: 62px;
-  padding: 6px 8px 7px;
+  min-width: 0;
+  padding: 6px 4px 7px;
   border: 1px solid var(--line-strong);
   background: var(--chip-off);
   color: #5c5348;
@@ -302,6 +302,43 @@ input:focus-visible {
 
 .bank-total { color: var(--muted); margin-top: 0; }
 
+.bank-scroll { overflow-x: auto; margin: 8px 0 18px; }
+
+.switch-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(4.7rem, 1fr));
+  gap: 8px;
+  min-width: 40rem;
+}
+
+.switch-card {
+  border: 1px solid var(--line);
+  background: #fffdf8;
+  padding: 8px;
+  min-width: 0;
+}
+
+.switch-card.on {
+  border-color: var(--copper);
+  background: #f8efe6;
+}
+
+.switch-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.switch-card .letter {
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.switch-card.on .letter { color: var(--copper-deep); }
+
 .table-scroll { overflow-x: auto; margin: 8px 0 18px; }
 
 .table-scroll.tall {
@@ -335,39 +372,34 @@ th {
   z-index: 1;
 }
 
-.bank tbody th {
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 500;
-  width: 4.5rem;
-  text-align: left;
-}
-
-.bank input {
-  width: 8.5rem;
+.switch-card input {
+  width: 100%;
   border: 1px solid var(--line-strong);
   border-radius: 6px;
   background: #fffdf8;
   font-family: var(--mono);
-  font-size: 16px;
+  font-size: 15px;
   color: var(--ink);
   padding: 6px 8px;
 }
 
-.bank input:focus {
+.switch-card input:focus {
   outline: 2px solid var(--copper);
   outline-offset: 1px;
   border-color: var(--copper);
 }
 
-.bank input[aria-invalid="true"] {
+.switch-card input[aria-invalid="true"] {
   border-color: var(--warn);
   color: var(--warn);
 }
 
 .sum {
+  margin: 6px 0 0;
   font-family: var(--mono);
+  font-size: 11px;
   color: var(--copper-deep);
+  line-height: 1.3;
 }
 
 .state { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #8b8174; }

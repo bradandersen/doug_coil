@@ -1,8 +1,9 @@
 "use strict";
 
-const SWITCHES = ["B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
+const SWITCHES = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
 
 const SAMPLE = {
+  A: "60",
   B: "29.78",
   C: "16.07",
   D: "8.02",
@@ -199,9 +200,10 @@ function render() {
     const lit = on.has(cap.id);
     state.textContent = lit ? "On" : "Off";
     state.classList.toggle("on", lit);
+    el("card-" + cap.id).classList.toggle("on", lit);
     if (valid && cap.uf > 0) total += cap.uf;
   });
-  el("bankTotal").textContent = "Switches B through P add up to " + formatUf(total) + " µF.";
+  el("bankTotal").textContent = "Switches A through P add up to " + formatUf(total) + " µF.";
 
   const chips = el("chips");
   chips.replaceChildren();
@@ -356,13 +358,21 @@ function renderCoilMeasure() {
 }
 
 function buildBank() {
-  const body = el("bankBody");
+  const grid = el("bankGrid");
   for (const id of SWITCHES) {
-    const tr = document.createElement("tr");
-    const letter = document.createElement("th");
-    letter.scope = "row";
+    const card = document.createElement("div");
+    card.className = "switch-card";
+    card.id = "card-" + id;
+    const top = document.createElement("div");
+    top.className = "switch-top";
+    const letter = document.createElement("span");
+    letter.className = "letter";
     letter.textContent = id;
-    const valueCell = document.createElement("td");
+    const state = document.createElement("span");
+    state.className = "state";
+    state.id = "state-" + id;
+    state.textContent = "Off";
+    top.append(letter, state);
     const input = document.createElement("input");
     input.id = "cap-" + id;
     input.setAttribute("inputmode", "decimal");
@@ -370,18 +380,14 @@ function buildBank() {
     input.spellcheck = false;
     input.setAttribute("aria-label", "Switch " + id + " microfarads");
     input.value = SAMPLE[id];
-    valueCell.append(input);
-    const sumCell = document.createElement("td");
-    sumCell.className = "sum";
-    sumCell.id = "sum-" + id;
-    const stateCell = document.createElement("td");
-    const state = document.createElement("span");
-    state.className = "state";
-    state.id = "state-" + id;
-    state.textContent = "Off";
-    stateCell.append(state);
-    tr.append(letter, valueCell, sumCell, stateCell);
-    body.append(tr);
+    const sum = document.createElement("p");
+    sum.className = "sum";
+    sum.append(document.createTextNode("Sum after "));
+    const sumValue = document.createElement("span");
+    sumValue.id = "sum-" + id;
+    sum.append(sumValue);
+    card.append(top, input, sum);
+    grid.append(card);
     input.addEventListener("input", render);
   }
 }
