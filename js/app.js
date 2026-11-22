@@ -134,7 +134,7 @@ function sweepSpec() {
 function loadStorage() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
-    if (!saved || typeof saved !== "object") return;
+    if (!saved || typeof saved !== "object") return false;
     if (typeof saved.coil === "string") el("coil").value = saved.coil;
     if (typeof saved.freq === "string") el("freq").value = saved.freq;
     if (saved.caps && typeof saved.caps === "object") {
@@ -147,8 +147,9 @@ function loadStorage() {
     if (typeof saved.sweepStep === "string") el("sweepStep").value = saved.sweepStep;
     if (typeof saved.knownCap === "string") el("knownCap").value = saved.knownCap;
     if (typeof saved.knownFreq === "string") el("knownFreq").value = saved.knownFreq;
+    return true;
   } catch (err) {
-    /* keep the sample values */
+    return false;
   }
 }
 
@@ -167,7 +168,7 @@ function saveStorage() {
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    el("saveNote").textContent = "Measurements stay in this browser.";
+    if (announceSave) el("saveNote").textContent = "Saved in this browser.";
   } catch (err) {
     el("saveNote").textContent = "This browser is not storing the measurements.";
   }
@@ -175,6 +176,7 @@ function saveStorage() {
 
 let lastFreq = null;
 let copyLabelTimer = 0;
+let announceSave = false;
 
 function render() {
   const coil = parseNum(el("coil").value);
@@ -404,8 +406,12 @@ function shiftFreq(delta) {
 
 function init() {
   buildBank();
-  loadStorage();
+  const restored = loadStorage();
   render();
+  el("saveNote").textContent = restored
+    ? "Restored your capacitor values from this browser."
+    : "Type your measured microfarads. They are stored in this browser.";
+  announceSave = true;
 
   for (const id of ["coil", "freq", "sweepFrom", "sweepTo", "sweepStep", "knownCap", "knownFreq"]) {
     el(id).addEventListener("input", render);
