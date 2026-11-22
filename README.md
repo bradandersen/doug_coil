@@ -28,6 +28,23 @@ That is base-X. The place value of a switch is its measured capacitance, and the
 
 On the sample bank, with switch M at 0.022 µF, switch C is 16.07 µF and the switches after it add up to 16.01 µF. Switch D is 8.02 µF and the switches after it add up to 7.99 µF. The same check runs down the row. After you enter new measurements, a switch that no longer matches the sum of the switches after it needs another look.
 
+## Engineering note
+
+When the capacitance and the frequency are optimal, the voltage is at a maximum.
+
+Be careful with amplitude while you flip switches. You can easily blow out a capacitor. Measure AC voltage with a digital multimeter across the two outputs to the coil. The reading may instead be across the capacitor base plates, from the capacitors to ground.
+
+You can fine-tune a frequency that is not on the list. At 302 Hz the switches are B F J K O.
+
+1. Turn the gain up to about 4 A, or 0.4 V.
+2. Turn on P. Did the voltage or the current go up?
+3. Turn off O and P, and turn on N. Try P on, then off.
+4. Turn O on, and try P on, then off.
+
+N is O plus P. You are adding and removing a little capacitance until the voltage and the current peak. That peak is the optimal capacitance for this frequency.
+
+Once you have found the peak, you can raise the gain to about 1.5 V, 15 A. If the capacitance is not optimal for the frequency, the coil and the amp work harder than they should and heat up faster than they need to.
+
 ## Switch Calculator
 
 1. Enter the coil size in millihenries (cell B1). The sample coil is 8.81 mH.
